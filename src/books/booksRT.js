@@ -15,7 +15,7 @@ router.get("/:author", BookCt.getByQuery);
 
 router.delete("/:id", isAuth, BookCt.deleteOne);
 
-router.post("/", uploadFile.single("posterName"), BookCt.addOne);
+router.post("/", uploadFile.single("posterName"), isAuth, BookCt.addOne);
 
-router.patch("/:id", BookCt.updateOne);
+router.patch("/:id", isAuth, BookCt.updateOne);
 
