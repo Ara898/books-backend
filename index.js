@@ -5,6 +5,9 @@ const PORT = process.env.PORT ?? 3000; //Lee las variables de entorno
 const app = express (); // Nuestra aplicación ejecuta Express
 app.use(cors("*"))
 app.use(express.json());
+app.disable("x-powered-by");
+app.use(express.static("public"));
+
 app.listen(PORT, err => {  //Esto hace que nuestra aplicación escuche un puerto
     console.log (
         err
