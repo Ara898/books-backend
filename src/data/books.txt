@@ -1,0 +1,286 @@
+MYSQL-books
+
+DROP DATABASE if exists books;
+CREATE DATABASE IF NOT EXISTS books;
+USE books;
+CREATE TABLE IF NOT EXISTS books (
+    id BINARY(16) PRIMARY KEY DEFAULT (UNHEX(REPLACE(UUID(), '-', ''))),
+    title VARCHAR(128) NOT NULL,
+    year YEAR NOT NULL,
+    author VARCHAR(64),
+    poster TEXT,    
+    price INT NOT NULL CHECK ( price >= 100 ),
+    page INT
+    );
+CREATE TABLE IF NOT EXISTS genres (
+ id INT AUTO_INCREMENT PRIMARY KEY,
+ name VARCHAR(32) NOT NULL UNIQUE     
+ );
+
+INSERT INTO genres (name) VALUES
+('Ciencia ficción'), ('Distopía'), ('Ensayo'), ('Fantasía'), ('Ficción feminista'), 
+('Ficción postapocalíptica'), ('Literatura infantil'), ('Misterio'), 
+('Novela'), ('Novela filosófica'), ('Novela gótica'), ('Novela histórica'), 
+('Novela psicológica'), ('Novela satírica'), ('Novela social'), ('Policial y Psicológico'),
+('Realismo mágico'), ('Romance'), ('Suspense'), ('Terror'), ('Thriller');
+
+INSERT INTO books (title, author, year, poster, price, page)
+VALUES 
+('Cien años de soledad', 'Gabriel García Márquez', 1967, 'https://www.penguinlibros.com/ar/1599055/cien-anos-de-soledad-edicion-ilustrada.jpg', 10000, 432),
+('El señor de los anillos', 'J.R.R. Tolkien', 1954, 'https://images.cdn1.buscalibre.com/fit-in/360x360/66/1a/661a3760157941a94cb8db3f5a9d5060.jpg', 12000, 1178),
+('1984', 'George Orwell', 1949, 'https://www.tematika.com/media/catalog/Ilhsa/Imagenes/682424.jpg', 8500, 328),
+('Crónica de una muerte anunciada', 'Gabriel García Márquez', 1981, 'https://images.cdn3.buscalibre.com/fit-in/360x360/e4/2e/e42e547626582cd8bbe8caab9aa860ca.jpg', 9800, 192),
+('Fahrenheit 451', 'Ray Bradbury', 1953,  'https://i.etsystatic.com/9703085/r/il/47f207/1681490554/il_570xN.1681490554_qw9w.jpg', 9200, 256),
+('El perfume', 'Patrick Süskind', 1985,  'https://www.researchgate.net/profile/Fiorella-Silveira/publication/281407673/figure/fig1/AS:670714868801547@1536922294403/Figura-1-Afiche-de-la-pelicula-El-perfume.ppm', 9200, 255),
+('El nombre de la rosa', 'Umberto Eco', 1980, 'https://covers.alibrate.com/b/5ed91ce34234a72ef42be569/914b62d5-6596-4a31-85ad-c43ecdd11104/medium', 10400, 503),
+('Las uvas de la ira', 'John Steinbeck', 1939, 'https://blogs.ead.unlp.edu.ar/encuentrolectores/files/2020/06/las-uvas.jpg', 9900, 464),
+('Crónicas marcianas', 'Ray Bradbury', 1950, 'https://images.cdn1.buscalibre.com/fit-in/360x360/eb/88/eb885d3f0bf74b6cade2cf3e3b0400ad.jpg', 9700, 222),
+('Mujer en punto cero', 'Nawal El Saadawi', 1975, 'https://capitanswing.com/wp-content/uploads/NawalElSaadawi_MujerEnPuntoCero.jpg', 8800, 128),
+('La carretera', 'Cormac McCarthy', 2006, 'https://images.cdn3.buscalibre.com/fit-in/360x360/e9/91/e991e84d24c65d11a644b96016b97ff3.jpg', 11400, 287),
+('La casa de los espíritus', 'Isabel Allende', 1982, 'https://m.media-amazon.com/images/I/51t2JOj4asL.jpg', 10300, 433),
+('El guardian entre el centeno', 'J.D. Salinger', 1951, 'https://http2.mlstatic.com/D_NQ_NP_630391-MLA42875312948_072020-O.webp', 9600, 214),
+('El silencio de los corderos', 'Thomas Harris', 1988, 'https://i.pinimg.com/736x/82/1f/f3/821ff37f04d6d8f417d0d9f328a41584.jpg', 11000, 368),
+('La Sombra del Viento', 'Carlos Ruiz Zafón', 2001, 'https://www.planetadelibros.com.ar/usuaris/libros/fotos/334/m_libros/portada_la-sombra-del-viento_carlos-ruiz-zafon_202105042109.jpg', 10200, 543),
+('El Código Da Vinci', 'Dan Brown', 2003, 'https://images.cdn2.buscalibre.com/fit-in/360x360/49/54/4954e233ad1e1a43e3f8187cd91c6997.jpg', 11500, 689),
+('El Principito', 'Antoine de Saint-Exupéry', 1943, 'https://ellector.com.pa/cdn/shop/products/el-principito-tapa-dura-bolsillo-antoine-de-saint-exupery-576196.jpg?v=1696464808', 8700, 96),
+('Los Juegos del Hambre', 'Suzanne Collins', 2008, 'https://i0.wp.com/oceano.mx/img/obra/media/8570.jpg', 9900, 374),
+('El Alquimista', 'Paulo Coelho', 1988, 'https://www.planetadelibros.com.co/usuaris/libros/fotos/164/m_libros/el-alquimista-una-fabula-para-seguir-tus-suenos_9789584235916.jpg', 9200, 163),
+('La naranja mecánica', 'Anthony Burgess', 1962, 'https://i.pinimg.com/originals/b4/73/6f/b4736f842961fba6defb115900269edf.jpg', 9500, 213),
+('Los hombres que no amaban a las mujeres', 'Stieg Larsson', 2005, 'https://imagessl6.casadellibro.com/a/l/s5/46/9788423340446.webp', 10100, 658),
+('El laberinto de la soledad', 'Octavio Paz', 1950, 'https://m.media-amazon.com/images/I/71tuJO9T1LL._AC_UF1000,1000_QL80_.jpg', 9500, 352),
+('El Resplandor', 'Stephen King', 1977, 'https://http2.mlstatic.com/D_NQ_NP_907305-MLA48925822932_012022-O.webp', 11000, 447),
+('Psicosis', 'Robert Bloch', 1959, 'https://www.bubok.com.ar/libro/portadaLibro/207174/1/psicosis.jpg', 10200, 240),
+('El Exorcista', 'William Peter Blatty', 1971, 'https://www.losandes.com.ar/resizer/64XLA9MO4lK-Y_MJyOkUonv4yM4=/1023x1514/smart/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/5IM3XNGBLVBIZKZZVI4D6NH2YU.jpg', 11500, 385),
+('El Silencio de la Ciudad Blanca', 'Eva García Sáenz de Urturi', 2016, 'https://www.tematika.com/media/catalog/Ilhsa/Imagenes/644223.jpg', 10300, 624),
+('Carrie', 'Stephen King', 1974, 'https://i.pinimg.com/736x/ef/e8/59/efe859210123207b74ba4cbe2ded0487.jpg', 9800, 199),
+('Misery', 'Stephen King', 1987, 'https://i.pinimg.com/736x/3a/c1/67/3ac167541c1b063a143cd44070524475.jpg', 10700, 310),
+('El Juego de Gerald', 'Stephen King', 1992, 'https://m.media-amazon.com/images/I/71b4q30PiRL._AC_UF894,1000_QL80_.jpg', 10400, 332),
+('La Sombra sobre Innsmouth', 'H.P. Lovecraft', 1936, 'https://m.media-amazon.com/images/I/71bkoiRgwRL._AC_UF894,1000_QL80_.jpg', 9900, 158),
+('Mystic River', 'Dennis Lehane', 2001, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYMKeo-b7hlj7-yCF4x0w-gg4VJH05D3jAYz8nZt5VuJn5SGW-no4MFXslwlD4fBfTCsw', 10200, 465),
+('Perdida', 'Gillian Flynn', 2012, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtrsdga9UUndcpjAWsqkHFxFpVyakZ309xaBd2rpaIrlbWNZSuWAgB91ypgbk3Sp8_RBE', 11000, 432),
+('El Alienista', 'Caleb Carr', 1994, 'https://http2.mlstatic.com/D_NQ_NP_895330-MLU70815031682_082023-O.webp', 10400, 498),
+('La Chica del Tren', 'Paula Hawkins', 2015, 'https://quelibroleo.com/images/libros/portada_la-chica-del-tren_aleix-montoto_201503251742.jpg', 9700, 395),
+('El cuaderno de Noah', 'Nicholas Sparks', 1996, 'https://1.bp.blogspot.com/-akuUWfnqe4g/VVFzlqq3jEI/AAAAAAAAC90/peVoYPATnN0/s1600/El%2Bcuaderno%2Bde%2BNoah%2B-%2BNicholas%2BSparks.jpg', 10500, 224),
+('Bajo el sol de la toscana', 'Frances Mayes', 1996, 'https://images.cdn3.buscalibre.com/fit-in/360x360/d4/5b/d45b957785d6d9f85548e3b4ed6dad8c.jpg', 9800, 320),
+('A todos los chicos de los que me enamoré', 'Jenny Han', 2014, 'https://images.cdn3.buscalibre.com/fit-in/360x360/1b/56/1b56c5a4810834d126c27ed9849f52aa.jpg', 11500, 355),
+('Me before you', 'Jojo Moyes', 2012, 'https://http2.mlstatic.com/D_NQ_NP_863069-MLA52025525108_102022-O.webp', 11000, 369),
+('El amor en los tiempos del cólera', 'Gabriel García Márquez', 1985, 'https://images.thalia.media/03/-/c4fb25122f0d4bf1be1ccbb17063e7f2/el-amor-en-los-tiempos-del-colera-taschenbuch-gabriel-garcia-marquez-spanisch.jpeg', 10200, 368),
+('Brida', 'Paulo Coelho', 1990, 'https://www.planetadelibros.com.ar/usuaris/libros/fotos/283/m_libros/portada___201808221734.jpg', 9900, 240),
+('La chica que dejaste atrás', 'Jojo Moyes', 2012, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIrlD7VmElHfuSg7PLxe9O6hRTMKi1SPPOzujD_PyK0YMvuFTPGoyYFsKjJjHCCtChB14', 10500, 480);
+
+
+SELECT BIN_TO_UUID(id) AS id, title, year, poster, price, page FROM books;
+
+CREATE TABLE book_genres (
+      book_id BINARY(16) REFERENCES books(id),
+      genre_id INT REFERENCES genres(id),
+      PRIMARY KEY (book_id, genre_id)
+      );
+
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'Cien años de soledad' AND g.name = 'Realismo mágico';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'El señor de los anillos' AND g.name = 'Fantasía';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = '1984' AND g.name = 'Distopía';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'Crónica de una muerte anunciada' AND g.name = 'Realismo mágico';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'Fahrenheit 451' AND g.name = 'Ciencia ficción';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'El perfume' AND g.name = 'Novela histórica';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'El nombre de la rosa' AND g.name = 'Novela histórica';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'Las uvas de la ira' AND g.name = 'Novela social';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'Crónicas marcianas' AND g.name = 'Ciencia ficción';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'Mujer en punto cero' AND g.name = 'Ficción feminista';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'La carretera' AND g.name = 'Ficción postapocalíptica';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'La casa de los espíritus' AND g.name = 'Realismo mágico';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'El guardian entre el centeno' AND g.name = 'Novela';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'El silencio de los corderos' AND g.name = 'Thriller';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'La Sombra del Viento' AND g.name = 'Novela gótica';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'El Código Da Vinci' AND g.name = 'Misterio';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'El Principito' AND g.name = 'Literatura infantil';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'Los Juegos del Hambre' AND g.name = 'Ciencia ficción';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'El Alquimista' AND g.name = 'Novela filosófica';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'La naranja mecánica' AND g.name = 'Distopía';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'Los hombres que no amaban a las mujeres' AND g.name = 'Thriller';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'El laberinto de la soledad' AND g.name = 'Ensayo';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'El Resplandor' AND g.name = 'Terror';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'Psicosis' AND g.name = 'Suspense';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'El Exorcista' AND g.name = 'Terror';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'El Silencio de la Ciudad Blanca' AND g.name = 'Misterio';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'Carrie' AND g.name = 'Terror';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'Misery' AND g.name = 'Suspense';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'El Juego de Gerald' AND g.name = 'Suspense';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'La Sombra sobre Innsmouth' AND g.name = 'Terror';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'Mystic River' AND g.name = 'Policial y Psicológico';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'El Alienista' AND g.name = 'Policial y Psicológico';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'Perdida' AND g.name = 'Policial y Psicológico';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'La Chica del Tren' AND g.name = 'Policial y Psicológico';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'El cuaderno de Noah' AND g.name = 'Romance';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'Bajo el sol de la toscana' AND g.name = 'Romance';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'A todos los chicos de los que me enamoré' AND g.name = 'Romance';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'Me before you' AND g.name = 'Romance';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'El amor en los tiempos del cólera' AND g.name = 'Romance';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'Brida' AND g.name = 'Romance';
+
+INSERT INTO book_genres (book_id, genre_id)
+SELECT b.id, g.id
+FROM books b
+JOIN genres g ON b.title = 'La chica que dejaste atrás' AND g.name = 'Romance';
+
+
